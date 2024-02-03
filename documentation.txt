@@ -1,0 +1,18 @@
+root
+  npm i express dotenv cookie-parser bcryptjs mongoose socket.io jsonwebtoken 
+  npm i nodemon --save-dev
+
+  frontend
+    npm create vite@latest .
+    npm i
+    npm run dev
+
+git bash
+  openssl rand -base64 32     to generate random string for jwt secret
+
+https://avatar-placeholder.iran.liara.run/document    for avatars
+
+is there any need of recieverId in message
+
+have to create groupConversation model reperately to include group functionality
+can chat with myself too
