@@ -1,8 +1,27 @@
-import React from "react";
+import { useState } from "react";
 import GenderCheckbox from "./GenderCheckbox";
+import { Link } from "react-router-dom";
+import useSignup from "../../hooks/useSignup";
 
 const Signup = () => {
   const APP_NAME = import.meta.env.VITE_APP_NAME;
+  const [inputs, setInputs] = useState({
+    fullName: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+  });
+  const { loading, signup } = useSignup();
+
+  const genderHandler = (gender) => {
+    setInputs({ ...inputs, gender });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    await signup(inputs);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -11,7 +30,7 @@ const Signup = () => {
           Sign Up <span className="text-blue-500">{APP_NAME}</span>
         </h1>
 
-        <form>
+        <form onSubmit={submitHandler}>
           {/* full name */}
           <div>
             <label className="label p-2">
@@ -20,6 +39,10 @@ const Signup = () => {
             <input
               type="text"
               placeholder="John Doe"
+              value={inputs.fullName}
+              onChange={(e) =>
+                setInputs({ ...inputs, fullName: e.target.value })
+              }
               className="w-full input input-bordered h-10"
             />
           </div>
@@ -32,6 +55,10 @@ const Signup = () => {
             <input
               type="text"
               placeholder="john_doe"
+              value={inputs.username}
+              onChange={(e) =>
+                setInputs({ ...inputs, username: e.target.value })
+              }
               className="w-full input input-bordered h-10"
             />
           </div>
@@ -44,6 +71,10 @@ const Signup = () => {
             <input
               type="password"
               placeholder="Enter Password"
+              value={inputs.password}
+              onChange={(e) =>
+                setInputs({ ...inputs, password: e.target.value })
+              }
               className="w-full input input-bordered h-10"
             />
           </div>
@@ -56,22 +87,39 @@ const Signup = () => {
             <input
               type="password"
               placeholder="Confirm Password"
+              value={inputs.confirmPassword}
+              onChange={(e) =>
+                setInputs({ ...inputs, confirmPassword: e.target.value })
+              }
               className="w-full input input-bordered h-10"
             />
           </div>
 
           {/* gender */}
-          <GenderCheckbox />
+          <GenderCheckbox
+            genderHandler={genderHandler}
+            selectedGender={inputs.gender}
+          />
 
           {/* login page link*/}
-          <a className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block">
+          <Link
+            to="/login"
+            className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
+          >
             Already have any account?
-          </a>
+          </Link>
 
           {/* submit */}
           <div>
-            <button className="btn btn-block btn-sm mt-2 border border-slate-700">
-              Sign Up
+            <button
+              className="btn btn-block btn-sm mt-2 border border-slate-700"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="loading loading-spinner" />
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </div>
         </form>

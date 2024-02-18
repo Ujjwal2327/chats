@@ -6,13 +6,25 @@ root
     npm create vite@latest .
     npm i
     npm run dev
+    npm install -D tailwindcss postcss autoprefixer
+    npx tailwindcss init -p
+    npm i -D daisyui@latest
+    npm i react-icons
+    npm i react-router-dom
+    npm i react-hot-toast
+    npm i axios
+    npm install zustand
+
 
 git bash
   openssl rand -base64 32     to generate random string for jwt secret
 
 https://avatar-placeholder.iran.liara.run/document    for avatars
 
-is there any need of recieverId in message
-
 have to create groupConversation model reperately to include group functionality
 can chat with myself too
+
+local storage - chats-user
+
+context   for global state management
+zustand   for global state management too - like redux but simpler
